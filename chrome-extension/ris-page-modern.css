@@ -1,0 +1,432 @@
+/**
+ * Uniprove 履修画面の上書き（RisyuKeeper）
+ * html.risyukeeper-page-modern が付いたときのみ有効
+ * 読みやすさ優先：本文は濃いグレー、カードは白、表見出しは中間トーン地＋濃色字
+ */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap");
+
+html.risyukeeper-page-modern {
+  --rk-bg: #e8ecf2;
+  --rk-surface: #ffffff;
+  --rk-ink: #1f2937;
+  --rk-muted: #5c6570;
+  --rk-accent: #2f6f9c;
+  --rk-accent-hover: #255a82;
+  --rk-header: #4a5d73;
+  --rk-header-sub: #5d6f85;
+  --rk-on-header: #f1f5f9;
+  --rk-table-head: #b0bfd4;
+  --rk-table-head-text: #111827;
+  --rk-line: #d1d6de;
+  /* 表・ボタンなど「背景と区切る」ためのやや濃い線 */
+  --rk-border-strong: #9aa6b5;
+  --rk-border-ui: #7d8b9c;
+  --rk-row-alt: #f3f5f8;
+  --rk-info-bg: #e8f1f8;
+  --rk-info-border: #8eb4d4;
+}
+
+html.risyukeeper-page-modern body {
+  font-family: "Noto Sans JP", system-ui, -apple-system, "Segoe UI", "Hiragino Sans", sans-serif !important;
+  background: var(--rk-bg) !important;
+  background-image: none !important;
+  color: var(--rk-ink) !important;
+  line-height: 1.5 !important;
+}
+
+html.risyukeeper-page-modern #container,
+html.risyukeeper-page-modern #main {
+  background: transparent !important;
+}
+
+/* ヘッダーブロック */
+html.risyukeeper-page-modern #header {
+  padding: 0 !important;
+  background: var(--rk-surface) !important;
+  background-image: none !important;
+  box-shadow: 0 1px 0 var(--rk-line);
+}
+
+html.risyukeeper-page-modern #header #headerbg {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+html.risyukeeper-page-modern #header #head {
+  background: var(--rk-header) !important;
+  background-image: none !important;
+  color: var(--rk-on-header) !important;
+  padding: 10px 14px !important;
+  height: auto !important;
+  min-height: 36px;
+}
+
+html.risyukeeper-page-modern #header #head p,
+html.risyukeeper-page-modern #header #head dl,
+html.risyukeeper-page-modern #header #head dt,
+html.risyukeeper-page-modern #header #head dd {
+  color: var(--rk-on-header) !important;
+}
+
+html.risyukeeper-page-modern #header #head a {
+  opacity: 0.95;
+}
+
+html.risyukeeper-page-modern #header h1 {
+  margin: 0 !important;
+  padding: 12px 16px !important;
+  background: var(--rk-surface) !important;
+  color: var(--rk-ink) !important;
+  font-size: 1.05rem !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.02em;
+  border: none !important;
+  border-bottom: 1px solid var(--rk-line) !important;
+  border-left: 4px solid var(--rk-accent) !important;
+}
+
+html.risyukeeper-page-modern #header ul#idhelp {
+  margin: -48px 12px 0 0 !important;
+}
+
+html.risyukeeper-page-modern #header ul#idhelp li {
+  color: var(--rk-muted) !important;
+}
+
+html.risyukeeper-page-modern #header ul#taskname {
+  margin: 0 !important;
+  padding: 8px 14px !important;
+  background: #e8edf4 !important;
+  border: none !important;
+  border-top: 1px solid var(--rk-line) !important;
+  color: var(--rk-ink) !important;
+}
+
+html.risyukeeper-page-modern #header ul#taskname li {
+  background: none !important;
+  padding-left: 0 !important;
+  margin-right: 16px !important;
+}
+
+html.risyukeeper-page-modern #header ul#authorize {
+  background: #e8edf4 !important;
+  border-color: var(--rk-line) !important;
+  color: var(--rk-ink) !important;
+}
+
+/* メインコンテンツ */
+html.risyukeeper-page-modern #contents {
+  margin: 16px 14px 24px !important;
+  padding: 0 !important;
+}
+
+html.risyukeeper-page-modern #contents.completion {
+  margin: 40px auto !important;
+  max-width: 42rem;
+}
+
+html.risyukeeper-page-modern div.tablearea {
+  margin: 12px 0 0 !important;
+  padding: 0 !important;
+  background: var(--rk-surface) !important;
+  border: 1px solid var(--rk-border-strong) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.06);
+  overflow: hidden;
+}
+
+html.risyukeeper-page-modern div.tablearea p {
+  padding: 12px 14px 6px !important;
+}
+
+/* タブ */
+html.risyukeeper-page-modern div.tabmenu {
+  border: none !important;
+  border-bottom: 1px solid var(--rk-border-strong) !important;
+  padding: 12px 14px 8px !important;
+  margin: 0 !important;
+  background: #f1f4f9 !important;
+}
+
+html.risyukeeper-page-modern div.tabmenu ul li a {
+  background: #fafbfc !important;
+  border: 1px solid var(--rk-border-strong) !important;
+  border-radius: 8px !important;
+  padding: 6px 14px !important;
+  margin: 0 8px 0 0 !important;
+  color: var(--rk-muted) !important;
+  text-decoration: none !important;
+}
+
+html.risyukeeper-page-modern div.tabmenu ul li span {
+  background: none !important;
+  border: none !important;
+  border-bottom: 3px solid var(--rk-accent) !important;
+  border-radius: 0 !important;
+  padding: 6px 4px !important;
+  margin: 0 12px 0 0 !important;
+  color: var(--rk-ink) !important;
+  font-weight: 600;
+}
+
+/* 一覧ツールバー */
+html.risyukeeper-page-modern div.tablearea div.searcharea {
+  background: #eef2f7 !important;
+  background-image: none !important;
+  border: none !important;
+  border-bottom: 1px solid var(--rk-border-strong) !important;
+  margin: 0 !important;
+  padding: 10px 14px !important;
+}
+
+html.risyukeeper-page-modern div.tablearea div.searcharea ul li {
+  color: var(--rk-ink);
+}
+
+html.risyukeeper-page-modern h3.outputset,
+html.risyukeeper-page-modern dl.outputlist dt {
+  background: none !important;
+  margin: 12px 14px 8px !important;
+  padding: 0 0 0 12px !important;
+  border-left: 3px solid var(--rk-accent) !important;
+  color: var(--rk-ink) !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+}
+
+html.risyukeeper-page-modern dl.outputset dt {
+  background: #eef2f7 !important;
+  background-image: none !important;
+  border: none !important;
+  border-bottom: 1px solid var(--rk-line) !important;
+  margin: 0 !important;
+  padding: 10px 14px !important;
+}
+
+html.risyukeeper-page-modern dl.outputset dd,
+html.risyukeeper-page-modern dl.outputlist dd {
+  border: 1px solid var(--rk-border-strong) !important;
+  border-radius: 0 0 8px 8px;
+}
+
+/* スクロール領域内テーブル */
+html.risyukeeper-page-modern div.scrl {
+  padding: 0 8px 12px !important;
+  overflow-x: auto !important;
+}
+
+html.risyukeeper-page-modern table.output {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  font-size: 13px !important;
+  border: 1px solid var(--rk-border-strong) !important;
+  background: var(--rk-surface) !important;
+}
+
+html.risyukeeper-page-modern table.output th {
+  background: var(--rk-table-head) !important;
+  color: var(--rk-table-head-text) !important;
+  font-weight: 600 !important;
+  padding: 10px 8px !important;
+  border: 1px solid var(--rk-border-strong) !important;
+  border-bottom: 2px solid var(--rk-accent) !important;
+  text-align: left;
+  white-space: nowrap;
+}
+
+html.risyukeeper-page-modern table.output td {
+  padding: 9px 8px !important;
+  border: 1px solid var(--rk-border-strong) !important;
+  vertical-align: middle !important;
+  background-clip: padding-box !important;
+}
+
+html.risyukeeper-page-modern table.output tr.gray {
+  background: var(--rk-row-alt) !important;
+}
+
+html.risyukeeper-page-modern table.output tbody tr:hover td {
+  background: rgba(47, 111, 156, 0.06) !important;
+}
+
+html.risyukeeper-page-modern table.input {
+  border-collapse: collapse !important;
+  border: 1px solid var(--rk-border-strong) !important;
+}
+
+html.risyukeeper-page-modern table.input th {
+  background: #f0f4e8 !important;
+  color: var(--rk-ink) !important;
+  border: 1px solid var(--rk-border-strong) !important;
+}
+
+html.risyukeeper-page-modern table.input td {
+  border: 1px solid var(--rk-border-strong) !important;
+}
+
+html.risyukeeper-page-modern table.output_curriculum {
+  border-collapse: collapse !important;
+  border: 1px solid var(--rk-border-strong) !important;
+}
+
+html.risyukeeper-page-modern table.output_curriculum th {
+  background: var(--rk-table-head) !important;
+  color: var(--rk-table-head-text) !important;
+  border: 1px solid var(--rk-border-strong) !important;
+}
+
+html.risyukeeper-page-modern table.output_curriculum td {
+  border: 1px solid var(--rk-border-strong) !important;
+}
+
+/* フォームコントロール */
+html.risyukeeper-page-modern input[type="text"],
+html.risyukeeper-page-modern input[type="password"],
+html.risyukeeper-page-modern select,
+html.risyukeeper-page-modern textarea {
+  border-radius: 6px !important;
+  border: 1px solid var(--rk-border-strong) !important;
+  padding: 5px 8px !important;
+  background: var(--rk-surface) !important;
+  color: var(--rk-ink) !important;
+}
+
+html.risyukeeper-page-modern input[type="text"]:focus,
+html.risyukeeper-page-modern select:focus,
+html.risyukeeper-page-modern textarea:focus {
+  outline: none !important;
+  border-color: var(--rk-accent) !important;
+  box-shadow: 0 0 0 2px rgba(47, 111, 156, 0.2) !important;
+}
+
+html.risyukeeper-page-modern input.linenone {
+  background: transparent !important;
+}
+
+/* 送信・戻るなど（既定は枠付きで背景と分離。主要ボタンだけ塗りつぶし） */
+html.risyukeeper-page-modern input[type="submit"],
+html.risyukeeper-page-modern input[type="button"]:not([type="image"]) {
+  border-radius: 8px !important;
+  padding: 8px 18px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  border: 1px solid var(--rk-border-ui) !important;
+  background: #f1f5f9 !important;
+  color: var(--rk-ink) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+}
+
+html.risyukeeper-page-modern input[type="submit"]:hover,
+html.risyukeeper-page-modern input[type="button"]:not([type="image"]):hover {
+  background: #e2e8f0 !important;
+  border-color: var(--rk-border-strong) !important;
+}
+
+html.risyukeeper-page-modern div.buttonarea input[type="submit"],
+html.risyukeeper-page-modern div.tablearea div.buttonarea input[type="submit"] {
+  background: var(--rk-accent) !important;
+  color: #ffffff !important;
+  border: 1px solid #1a4a6e !important;
+  box-shadow:
+    0 1px 2px rgba(30, 58, 90, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+html.risyukeeper-page-modern div.buttonarea input[type="submit"]:hover,
+html.risyukeeper-page-modern div.tablearea div.buttonarea input[type="submit"]:hover {
+  background: var(--rk-accent-hover) !important;
+  border-color: #153d5c !important;
+}
+
+html.risyukeeper-page-modern div.buttonarea-move {
+  background: #e2e8f0 !important;
+  border-radius: 8px !important;
+  margin-top: 16px !important;
+}
+
+html.risyukeeper-page-modern div.buttonarea {
+  padding: 12px 14px !important;
+  margin: 0 !important;
+}
+
+html.risyukeeper-page-modern #contents #signup {
+  margin-top: 16px !important;
+}
+
+/* 画像ボタン（ページ送り・Go 等）：枠で領域を明示 */
+html.risyukeeper-page-modern input[type="image"] {
+  border-radius: 4px;
+  vertical-align: middle !important;
+  border: 1px solid var(--rk-border-strong) !important;
+  background: #fafbfc !important;
+  box-sizing: border-box !important;
+}
+
+html.risyukeeper-page-modern input[type="image"]:disabled {
+  opacity: 0.55 !important;
+  border-color: var(--rk-line) !important;
+}
+
+/* リンク */
+html.risyukeeper-page-modern a:link {
+  color: var(--rk-accent) !important;
+}
+
+html.risyukeeper-page-modern a:visited {
+  color: #3d5a73 !important;
+}
+
+html.risyukeeper-page-modern a:hover {
+  color: var(--rk-accent-hover) !important;
+}
+
+/* メッセージ */
+html.risyukeeper-page-modern #contents dl.errormessage {
+  border-radius: 10px !important;
+  border: 1px solid #f0a8a8 !important;
+  background: #fef2f2 !important;
+  margin: 12px 0 !important;
+}
+
+html.risyukeeper-page-modern #contents dl.errormessage dt {
+  color: #b91c1c !important;
+}
+
+html.risyukeeper-page-modern #contents dl.message {
+  border-radius: 10px !important;
+  border: 1px solid var(--rk-info-border) !important;
+  background: var(--rk-info-bg) !important;
+}
+
+/* フッタ */
+html.risyukeeper-page-modern address {
+  background: #dce3ec !important;
+  color: var(--rk-ink) !important;
+  padding: 10px 14px !important;
+  font-size: 12px !important;
+  margin: 0 !important;
+}
+
+html.risyukeeper-page-modern #mainmenu {
+  margin: 12px 14px !important;
+}
+
+html.risyukeeper-page-modern h2 {
+  background: none !important;
+  padding-left: 12px !important;
+  border-left: 3px solid var(--rk-accent);
+  color: var(--rk-ink) !important;
+  font-weight: 600 !important;
+}
+
+html.risyukeeper-page-modern .red {
+  color: #c53030 !important;
+}
+
+html.risyukeeper-page-modern .green {
+  color: #276749 !important;
+}
+
+html.risyukeeper-page-modern .required {
+  color: #c53030 !important;
+}

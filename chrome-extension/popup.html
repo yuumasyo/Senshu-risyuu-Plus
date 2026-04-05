@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja" class="ui-modern">
+<head>
+  <meta charset="UTF-8" />
+  <title>RisyuKeeper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="brand">
+      <h1>RisyuKeeper</h1>
+      <span class="brand-badge" id="brandBadge" hidden>モダン</span>
+    </header>
+
+    <section class="panel">
+      <p class="panel-title" id="panelLookTitle" hidden>表示</p>
+      <label class="row">
+        <input type="checkbox" id="modernUiMode" checked />
+        モダンな見た目（ポップアップ・履修画面・デバッグ・配当の検索ボタン）
+      </label>
+    </section>
+
+    <section class="panel">
+      <p class="panel-title" id="panelKeepTitle" hidden>キープ</p>
+      <label class="row">
+        <input type="checkbox" id="enabled" />
+        キープを有効にする
+      </label>
+      <label class="row">
+        無操作
+        <input type="number" id="idleValue" min="0.1" step="any" />
+        <select id="idleUnit" title="待機時間の単位">
+          <option value="sec">秒</option>
+          <option value="min">分</option>
+        </select>
+        後にクリック
+      </label>
+      <label class="row">
+        <input type="checkbox" id="debugMode" />
+        デバッグモード（コンソールログ＋画面右下の表示）
+      </label>
+    </section>
+
+    <section class="panel">
+      <p class="panel-title" id="panelSyllabusTitle" hidden>シラバス</p>
+      <label class="row" title="配当画面の見出し（例: 火曜１時限）をパースしてシラバス検索に反映。オフが既定（サーバエラー回避）">
+        <input type="checkbox" id="syllabusIncludeYobiJigen" />
+        シラバス検索に曜日・時限を含める（見出しから自動）
+      </label>
+      <label class="row" title="配当から開いた検索のあと、一覧の1件目のシラバス詳細ページへそのまま移動します（同一タブ）">
+        <input type="checkbox" id="syllabusPreviewFirstResult" />
+        シラバス検索後に1件目の詳細へ遷移
+      </label>
+    </section>
+
+    <section class="panel">
+      <p class="panel-title" id="panelTargetTitle" hidden>対象</p>
+      <label class="row">
+        対象
+        <select id="matchMode">
+          <option value="zenki_doyou_7">前期・土曜・7限の「科目の追加」</option>
+          <option value="custom">カスタム（onclick に含まれる文字列）</option>
+        </select>
+      </label>
+      <label class="row" id="customWrap" style="display: none; flex-wrap: wrap;">
+        <span style="width: 100%; margin-bottom: 4px;">含める文字列（タブは \t）</span>
+        <input type="text" id="customOnclickIncludes" style="width: 100%; box-sizing: border-box;" />
+      </label>
+    </section>
+
+    <button type="button" id="save">保存</button>
+    <p class="hint">
+      待機時間は 1 秒〜24 時間（86400 秒）です。曜日・時限は任意です（オンにするとシラバス側でエラーが出る場合があります）。
+    </p>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

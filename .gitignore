@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs & local env
+*.log
+.env
+.env.*
+
+# Archives (配布用ZIPなどをルートに置いた場合)
+*.zip
+
+# ブラウザが生成する拡張パッケージ作業用（任意）
+*.crx
+*.pem

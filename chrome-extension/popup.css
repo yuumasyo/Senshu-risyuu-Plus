@@ -1,0 +1,192 @@
+/* 共通 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans JP", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 13px;
+  margin: 0;
+  min-width: 260px;
+  color: #222;
+}
+
+h1 {
+  font-size: 14px;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+label.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+label.row input[type="number"] {
+  width: 5.5em;
+}
+
+select {
+  flex: 1;
+  max-width: 100%;
+}
+
+.hint {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
+button#save {
+  margin-top: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+/* クラシック（従来どおり） */
+html.ui-classic body {
+  margin: 12px 14px;
+}
+
+html.ui-classic .brand {
+  margin-bottom: 10px;
+}
+
+html.ui-classic .panel {
+  margin-bottom: 4px;
+}
+
+html.ui-classic .panel-title {
+  display: none;
+}
+
+/* モダン: 読みやすさ優先（履修画面と同系・スチールブルーアクセント） */
+html.ui-modern body {
+  margin: 0;
+  min-width: 288px;
+  background: linear-gradient(165deg, #e4e9f0 0%, #eef2f7 50%, #e8ecf2 100%);
+  color: #1f2937;
+}
+
+html.ui-modern .app {
+  padding: 14px 14px 16px;
+}
+
+html.ui-modern .brand {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+html.ui-modern .brand h1 {
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #1f2937;
+  margin: 0;
+}
+
+html.ui-modern .brand-badge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #2f6f9c;
+  background: rgba(47, 111, 156, 0.1);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+html.ui-modern .panel {
+  background: #ffffff;
+  border: 1px solid #9aa6b5;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(30, 41, 59, 0.06);
+}
+
+html.ui-modern .panel + .panel {
+  margin-top: 10px;
+}
+
+html.ui-modern .panel-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5c6570;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 8px;
+}
+
+html.ui-modern label.row {
+  margin-bottom: 9px;
+  line-height: 1.35;
+}
+
+html.ui-modern label.row:last-child {
+  margin-bottom: 0;
+}
+
+html.ui-modern input[type="checkbox"] {
+  accent-color: #2f6f9c;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+html.ui-modern input[type="number"],
+html.ui-modern input[type="text"],
+html.ui-modern select {
+  border: 1px solid #9aa6b5;
+  border-radius: 8px;
+  padding: 5px 8px;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+html.ui-modern input[type="number"]:focus,
+html.ui-modern input[type="text"]:focus,
+html.ui-modern select:focus {
+  outline: none;
+  border-color: #2f6f9c;
+  box-shadow: 0 0 0 2px rgba(47, 111, 156, 0.2);
+}
+
+html.ui-modern button#save {
+  margin-top: 12px;
+  width: 100%;
+  padding: 9px 14px;
+  border: 1px solid #1a4a6e;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(180deg, #3a7eb0 0%, #2f6f9c 100%);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(30, 58, 90, 0.15);
+}
+
+html.ui-modern button#save:hover {
+  background: linear-gradient(180deg, #2f6f9c 0%, #255a82 100%);
+}
+
+html.ui-modern button#save:active {
+  transform: translateY(1px);
+}
+
+html.ui-modern .hint {
+  color: #5c6570;
+  margin-top: 12px;
+  padding: 0 2px;
+}
+
+html.ui-modern #customWrap span {
+  color: #5c6570;
+}

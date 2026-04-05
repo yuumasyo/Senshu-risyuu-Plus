@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "RisyuKeeper（履修画面 無操作キープ）",
+  "version": "1.0.0",
+  "description": "履修画面の無操作キープと、配当科目選択からのシラバス検索（別タブ）を補助します。",
+  "permissions": ["storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["ris-page-modern.css"],
+      "matches": ["https://ris.acc.senshu-u.ac.jp/*"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "RisyuKeeper"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://ris.acc.senshu-u.ac.jp/*"],
+      "js": ["syllabus-search.js", "content.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    },
+    {
+      "matches": ["https://syllabus.acc.senshu-u.ac.jp/*"],
+      "js": ["syllabus-fill.js", "syllabus-results.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}

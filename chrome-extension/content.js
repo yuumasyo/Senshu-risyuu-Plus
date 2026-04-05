@@ -23,9 +23,6 @@
   let overlayTimerId = null;
   let nextFireAt = 0;
 
-  const DISCLAIMER_MODAL_ID = "senshu-risu-disclaimer-modal";
-  const DISCLAIMER_HIDE_KEY = "risCourseDisclaimerHide";
-
   function isExtensionContextInvalidated(err) {
     const msg = err && (err.message || String(err));
     return typeof msg === "string" && msg.includes("Extension context invalidated");
@@ -67,170 +64,6 @@
 
   function dbg(...args) {
     if (settings.debugMode) console.log("[Senshu-risyuu-Plus]", ...args);
-  }
-
-  function tryStorageLocalGetDisclaimer(keys, callback) {
-    try {
-      chrome.storage.local.get(keys, callback);
-    } catch (e) {
-      if (!isExtensionContextInvalidated(e)) throw e;
-    }
-  }
-
-  function tryStorageLocalSetDisclaimer(items, callback) {
-    try {
-      chrome.storage.local.set(items, callback);
-    } catch (e) {
-      if (!isExtensionContextInvalidated(e)) throw e;
-    }
-  }
-
-  /**
-   * 履修サイト（拡張有効時）で初回表示する免責・確認モーダル。
-   * 子 iframe では出さない（重複防止）。
-   */
-  function mountDisclaimerModal() {
-    if (document.getElementById(DISCLAIMER_MODAL_ID)) return;
-
-    const backdrop = document.createElement("div");
-    backdrop.id = DISCLAIMER_MODAL_ID;
-    backdrop.setAttribute("role", "dialog");
-    backdrop.setAttribute("aria-modal", "true");
-    backdrop.setAttribute("aria-labelledby", "senshu-risu-disclaimer-title");
-    backdrop.style.cssText = [
-      "position:fixed",
-      "inset:0",
-      "z-index:2147483647",
-      "background:rgba(15,23,42,.55)",
-      "display:flex",
-      "align-items:center",
-      "justify-content:center",
-      "padding:16px",
-      "box-sizing:border-box",
-    ].join(";");
-
-    const panel = document.createElement("div");
-    panel.style.cssText = [
-      "max-width:32rem",
-      "width:100%",
-      "max-height:min(90vh,640px)",
-      "overflow:auto",
-      "background:#fff",
-      "color:#1f2937",
-      "border-radius:12px",
-      "box-shadow:0 25px 50px -12px rgba(0,0,0,.25)",
-      "border:1px solid #cbd5e1",
-      "font:14px/1.6 system-ui,-apple-system,\"Noto Sans JP\",sans-serif",
-      "padding:20px 22px",
-      "box-sizing:border-box",
-    ].join(";");
-
-    const title = document.createElement("h2");
-    title.id = "senshu-risu-disclaimer-title";
-    title.textContent = "Senshu-risyuu-Plus：重要なご確認";
-    title.style.cssText = "margin:0 0 12px;font-size:1.05rem;font-weight:700;color:#0f172a;";
-
-    const p1 = document.createElement("p");
-    p1.style.margin = "0 0 12px";
-    p1.textContent =
-      "この拡張機能は大学・システム運営者による公式のものではありません。履修の申請・単位認定の保存など、重要な操作を行う前に、必ず次を実施してください。";
-
-    const ol = document.createElement("ol");
-    ol.style.cssText = "margin:0 0 14px;padding-left:1.35em;";
-    const li1 = document.createElement("li");
-    li1.style.marginBottom = "8px";
-    li1.innerHTML =
-      "ブラウザの <strong>拡張機能を管理</strong>を開き（Chrome: <code>chrome://extensions</code>、Edge: <code>edge://extensions</code>）、<strong>本拡張（Senshu-risyuu-Plus）をオフ</strong>にします。";
-    const li2 = document.createElement("li");
-    li2.style.marginBottom = "8px";
-    li2.innerHTML =
-      "<strong>拡張なしの公式の履修画面だけ</strong>の状態で、申請や保存が問題なく行えることを確認します。";
-    const li3 = document.createElement("li");
-    li3.textContent = "問題ないことを確認したうえで、必要に応じて本拡張を再度オンにしてください。";
-    ol.appendChild(li1);
-    ol.appendChild(li2);
-    ol.appendChild(li3);
-
-    const p2 = document.createElement("p");
-    p2.style.cssText = "margin:0 0 16px;padding:10px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b;";
-    p2.innerHTML =
-      "<strong>免責：</strong>本拡張の利用により生じた不利益・データの不整合・履修上のトラブル等について、<strong>開発者は一切の責任を負いません。</strong>利用はすべて自己責任です。";
-
-    const rowUnderstand = document.createElement("label");
-    rowUnderstand.style.cssText =
-      "display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;cursor:pointer;";
-    const cbUnderstand = document.createElement("input");
-    cbUnderstand.type = "checkbox";
-    cbUnderstand.style.cssText = "margin-top:4px;width:16px;height:16px;flex-shrink:0;accent-color:#2f6f9c;";
-    const spanUnderstand = document.createElement("span");
-    spanUnderstand.textContent =
-      "上記（拡張をオフにして公式画面のみで確認すること、および免責）を読み、内容を理解しました。";
-    rowUnderstand.appendChild(cbUnderstand);
-    rowUnderstand.appendChild(spanUnderstand);
-
-    const rowHide = document.createElement("label");
-    rowHide.style.cssText =
-      "display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;cursor:pointer;";
-    const cbHide = document.createElement("input");
-    cbHide.type = "checkbox";
-    cbHide.style.cssText = "margin-top:4px;width:16px;height:16px;flex-shrink:0;accent-color:#2f6f9c;";
-    const spanHide = document.createElement("span");
-    spanHide.textContent = "次回からこの警告を表示しない（ローカルに保存）";
-    rowHide.appendChild(cbHide);
-    rowHide.appendChild(spanHide);
-
-    const btnRow = document.createElement("div");
-    btnRow.style.cssText = "display:flex;justify-content:flex-end;gap:10px;";
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.textContent = "画面を続行する";
-    btn.disabled = true;
-    btn.style.cssText = [
-      "padding:10px 18px",
-      "border-radius:8px",
-      "border:1px solid #cbd5e1",
-      "background:#e5e7eb",
-      "color:#9ca3af",
-      "font-weight:600",
-      "cursor:not-allowed",
-    ].join(";");
-
-    function updateBtn() {
-      const ok = cbUnderstand.checked;
-      btn.disabled = !ok;
-      btn.style.background = ok ? "#2f6f9c" : "#e5e7eb";
-      btn.style.color = ok ? "#fff" : "#9ca3af";
-      btn.style.borderColor = ok ? "#255a82" : "#cbd5e1";
-      btn.style.cursor = ok ? "pointer" : "not-allowed";
-    }
-    cbUnderstand.addEventListener("change", updateBtn);
-
-    btn.addEventListener("click", () => {
-      if (!cbUnderstand.checked) return;
-      if (cbHide.checked) {
-        tryStorageLocalSetDisclaimer({ [DISCLAIMER_HIDE_KEY]: true });
-      }
-      backdrop.remove();
-    });
-
-    btnRow.appendChild(btn);
-    panel.appendChild(title);
-    panel.appendChild(p1);
-    panel.appendChild(ol);
-    panel.appendChild(p2);
-    panel.appendChild(rowUnderstand);
-    panel.appendChild(rowHide);
-    panel.appendChild(btnRow);
-    backdrop.appendChild(panel);
-    document.documentElement.appendChild(backdrop);
-  }
-
-  function showDisclaimerIfNeeded() {
-    if (window !== window.top) return;
-    tryStorageLocalGetDisclaimer([DISCLAIMER_HIDE_KEY], (got) => {
-      if (got[DISCLAIMER_HIDE_KEY]) return;
-      mountDisclaimerModal();
-    });
   }
 
   /** 申請状況（ARD010）など: 科目の追加 */
@@ -472,6 +305,122 @@
     document.addEventListener(type, onActivity, opts)
   );
 
+  const DISCLAIMER_SESSION_KEY = "senshu-risyuu-plus-enrollment-warn-dismissed";
+  const DISCLAIMER_MODAL_ID = "senshu-risyuu-plus-disclaimer-modal";
+
+  /**
+   * 履修サイト（トップフレーム）初回表示時: 最終申請前の無効化確認と免責のモーダル。
+   * 同一タブ内では sessionStorage で再表示を抑止。
+   */
+  function showEnrollmentDisclaimerIfNeeded() {
+    if (window !== window.top) return;
+    if (!/^https:\/\/ris\.acc\.senshu-u\.ac\.jp\//.test(location.href)) return;
+    try {
+      if (sessionStorage.getItem(DISCLAIMER_SESSION_KEY) === "1") return;
+    } catch {
+      /* ストレージ不可環境では毎回表示 */
+    }
+    if (document.getElementById(DISCLAIMER_MODAL_ID)) return;
+
+    const backdrop = document.createElement("div");
+    backdrop.id = DISCLAIMER_MODAL_ID;
+    backdrop.setAttribute("role", "dialog");
+    backdrop.setAttribute("aria-modal", "true");
+    backdrop.setAttribute("aria-labelledby", "srp-disclaimer-title");
+    backdrop.style.cssText = [
+      "position:fixed",
+      "inset:0",
+      "z-index:2147483645",
+      "display:flex",
+      "align-items:center",
+      "justify-content:center",
+      "padding:16px",
+      "box-sizing:border-box",
+      "background:rgba(15,23,42,.55)",
+      "font:15px/1.6 system-ui,-apple-system,\"Noto Sans JP\",sans-serif",
+    ].join(";");
+
+    const panel = document.createElement("div");
+    panel.style.cssText = [
+      "max-width:28rem",
+      "width:100%",
+      "max-height:min(90vh,520px)",
+      "overflow:auto",
+      "background:#fff",
+      "color:#1f2937",
+      "border-radius:12px",
+      "padding:20px 22px",
+      "box-shadow:0 20px 50px rgba(0,0,0,.25)",
+      "border:1px solid #cbd5e1",
+      "box-sizing:border-box",
+    ].join(";");
+
+    const title = document.createElement("h2");
+    title.id = "srp-disclaimer-title";
+    title.textContent = "ご利用前の確認（重要）";
+    title.style.cssText = "margin:0 0 12px;font-size:1.05rem;font-weight:700;line-height:1.35;";
+    panel.appendChild(title);
+
+    const p1 = document.createElement("p");
+    p1.style.margin = "0 0 12px";
+    p1.innerHTML =
+      "この拡張機能（<strong>Senshu-risyuu-Plus</strong>）を<strong>有効にした状態</strong>で履修登録画面を表示しています。";
+    panel.appendChild(p1);
+
+    const ul = document.createElement("ul");
+    ul.style.cssText = "margin:0 0 14px;padding-left:1.25em;";
+    const items = [
+      "最終的な<strong>申請・保存</strong>を行う前に、Chrome のメニュー「設定」→「拡張機能」（アドレスバーに <code style=\"font-size:.9em\">chrome://extensions</code> と入力して開くこともできます）から<strong>本拡張をオフ（無効）</strong>にしてください。",
+      "無効化したうえで、<strong>拡張なしの通常の画面</strong>のまま、申請・保存が問題なく行えることを<strong>必ずご確認ください</strong>。",
+      "本拡張の利用に起因する不具合・データの不整合・損害等について、<strong>開発者は一切の責任を負いません</strong>。すべて<strong>自己責任</strong>でのご利用となります。",
+    ];
+    items.forEach((html) => {
+      const li = document.createElement("li");
+      li.style.marginBottom = "8px";
+      li.innerHTML = html;
+      ul.appendChild(li);
+    });
+    panel.appendChild(ul);
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = "上記を理解して閉じる";
+    btn.style.cssText = [
+      "display:block",
+      "width:100%",
+      "margin-top:4px",
+      "padding:12px 16px",
+      "font-size:15px",
+      "font-weight:600",
+      "cursor:pointer",
+      "border:1px solid #1a4a6e",
+      "border-radius:10px",
+      "background:linear-gradient(180deg,#3a7eb0,#2f6f9c)",
+      "color:#fff",
+      "box-sizing:border-box",
+    ].join(";");
+    btn.addEventListener("click", () => {
+      try {
+        sessionStorage.setItem(DISCLAIMER_SESSION_KEY, "1");
+      } catch {
+        /* ignore */
+      }
+      backdrop.remove();
+    });
+    panel.appendChild(btn);
+
+    backdrop.appendChild(panel);
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) e.stopPropagation();
+    });
+    (document.body || document.documentElement).appendChild(backdrop);
+    try {
+      btn.focus();
+    } catch {
+      /* ignore */
+    }
+  }
+
   function applySettings() {
     applyPageModernTheme();
     clearTimer();
@@ -492,9 +441,11 @@
     }
   }
 
-  loadSettings().then(applySettings);
-
-  showDisclaimerIfNeeded();
+  loadSettings()
+    .then(applySettings)
+    .then(() => {
+      showEnrollmentDisclaimerIfNeeded();
+    });
 
   try {
     chrome.storage.onChanged.addListener((changes, area) => {

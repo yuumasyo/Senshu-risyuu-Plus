@@ -18,27 +18,6 @@
 
 ---
 
-## GitHub に上げる（公開・バックアップ）
-
-1. [GitHub](https://github.com) で新しい **Repository** を作成（空の README は付けなくてよい）。
-2. このフォルダで次を実行します（初回のみ `git init`）。
-
-```bash
-cd Senshu-risyuu-Plus
-git init
-git add .
-git commit -m "Initial commit: Senshu-risyuu-Plus Chrome extension"
-git branch -M main
-git remote add origin https://github.com/<あなたのユーザー名>/<リポジトリ名>.git
-git push -u origin main
-```
-
-SSH を使う場合は `git remote add origin git@github.com:<ユーザー>/<リポジトリ>.git` に読み替えてください。
-
-**クローンした人向け:** リポジトリを clone したあと、Chrome の「パッケージ化されていない拡張機能を読み込む」で **`chrome-extension` フォルダ** を指定すれば同じように使えます。
-
----
-
 ## モダンUIについて
 
 - ポップアップで **「モダンな見た目」** のオン／オフを保存すると、次の表示がまとめて切り替わります。
@@ -48,19 +27,6 @@ SSH を使う場合は `git remote add origin git@github.com:<ユーザー>/<リ
   - 配当一覧に追加する **「シラバス」列と「検索」ボタン**
 - 本文は濃いグレー、表は **セル罫線**、ボタンは **枠線** を付けて背景と区別しやすくしています。
 - 日本語表示は **Noto Sans JP**（Google Fonts）を読み込み、フォント指定の先頭に置いています。履修ページ側で Content-Security-Policy によりフォントがブロックされる場合は、OS のフォールバックフォントになります。
-
----
-
-## 拡張フォルダ内の主なファイル
-
-| ファイル | 役割 |
-| --- | --- |
-| `manifest.json` | MV3 の定義（権限・コンテンツスクリプト・Web アクセス可能リソースなど） |
-| `popup.html` / `popup.js` / `popup.css` | 設定UI |
-| `content.js` | 無操作キープ、デバッグオーバーレイ、モダンUI用スタイルの注入 |
-| `syllabus-search.js` | 配当画面への「シラバス」列・検索、学科名の保存 |
-| `syllabus-fill.js` / `syllabus-results.js` | シラバス側のフォーム入力・1件目詳細への遷移 |
-| `ris-page-modern.css` | 履修画面のモダン用スタイル（`content.js` から読み込み） |
 
 ---
 
@@ -152,5 +118,5 @@ GitHub から新しいファイルを取得したあと、**もう一度 `chrome
 
 ## 免責事項
 
-- 本ソフトウェアの利用により生じた損害について、作者・貢献者は責任を負いません。
+- 本ソフトウェアの利用により生じた損害について、作者は責任を負いません。
 - 大学のシステム仕様変更により、動かなくなることがあります。

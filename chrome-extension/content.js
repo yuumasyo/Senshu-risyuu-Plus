@@ -10,7 +10,7 @@
   ];
 
   const DEFAULTS = {
-    enabled: false,
+    enabled: true,
     idleSeconds: 120,
     debugMode: false,
     modernUiMode: true,

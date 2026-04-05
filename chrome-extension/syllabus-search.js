@@ -197,7 +197,7 @@
 
         let yobi = "";
         let jigen = "";
-        if (gotSync.syllabusIncludeYobiJigen) {
+        if (gotSync.syllabusIncludeYobiJigen !== false) {
           const yj = parseYobiJigenFromHeading(headingText);
           yobi = yj.yobi;
           jigen = yj.jigen;
@@ -232,7 +232,7 @@
           kaikoCd,
           yobi,
           jigen,
-          previewFirst: !!gotSync.syllabusPreviewFirstResult,
+          previewFirst: gotSync.syllabusPreviewFirstResult !== false,
         });
       });
     });

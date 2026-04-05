@@ -97,7 +97,7 @@
       }
 
       tryStorageSyncGet(["syllabusPreviewFirstResult"], (s) => {
-        if (!s.syllabusPreviewFirstResult) {
+        if (s.syllabusPreviewFirstResult === false) {
           clearPreviewRequest();
           return;
         }

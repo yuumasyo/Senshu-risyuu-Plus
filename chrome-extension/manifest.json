@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Senshu-risyuu-Plus（専修大学 履修画面・UI/UX）",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "専修大学 履修画面の無操作キープ、シラバス検索連携、モダンUI（見た目の改善）をまとめて補助します。",
   "permissions": ["storage"],
   "web_accessible_resources": [

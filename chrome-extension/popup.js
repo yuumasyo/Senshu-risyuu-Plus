@@ -1,10 +1,10 @@
 const DEFAULTS = {
-  enabled: false,
+  enabled: true,
   idleSeconds: 120,
   debugMode: false,
   modernUiMode: true,
-  syllabusIncludeYobiJigen: false,
-  syllabusPreviewFirstResult: false,
+  syllabusIncludeYobiJigen: true,
+  syllabusPreviewFirstResult: true,
   matchMode: "zenki_doyou_7",
   customOnclickIncludes: "\\t1\\tF7\\t",
 };
@@ -75,13 +75,20 @@ function load() {
     applyUiTheme(modern);
     $("modernUiMode").checked = modern;
 
-    $("enabled").checked = !!items.enabled;
+    $("enabled").checked =
+      items.enabled === undefined ? DEFAULTS.enabled : !!items.enabled;
     const ui = secondsToUi(idleSeconds);
     $("idleValue").value = ui.value;
     $("idleUnit").value = ui.unit;
     $("debugMode").checked = !!items.debugMode;
-    $("syllabusIncludeYobiJigen").checked = !!items.syllabusIncludeYobiJigen;
-    $("syllabusPreviewFirstResult").checked = !!items.syllabusPreviewFirstResult;
+    $("syllabusIncludeYobiJigen").checked =
+      items.syllabusIncludeYobiJigen === undefined
+        ? DEFAULTS.syllabusIncludeYobiJigen
+        : !!items.syllabusIncludeYobiJigen;
+    $("syllabusPreviewFirstResult").checked =
+      items.syllabusPreviewFirstResult === undefined
+        ? DEFAULTS.syllabusPreviewFirstResult
+        : !!items.syllabusPreviewFirstResult;
     $("matchMode").value = items.matchMode || DEFAULTS.matchMode;
     $("customOnclickIncludes").value =
       items.customOnclickIncludes || DEFAULTS.customOnclickIncludes;

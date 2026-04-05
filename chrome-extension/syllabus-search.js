@@ -4,7 +4,7 @@
   /** 別タブで開く公式検索画面（セッションはこの GET から開始する） */
   const SYLLABUS_ENTRY_URL =
     "https://syllabus.acc.senshu-u.ac.jp/syllsenshu/slspskgr.do?clearAccessData=true&contenam=slspskgr&kjnmnNo=8";
-  const LOG = "[RisyuKeeper:シラバス]";
+  const LOG = "[Senshu-risyuu-Plus:シラバス]";
 
   /** 拡張の再読み込み後、タブを更新せずに古いコンテキストのスクリプトが動き続けると発生する */
   function isExtensionContextInvalidated(err) {

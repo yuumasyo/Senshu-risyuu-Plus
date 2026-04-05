@@ -1,6 +1,6 @@
 (function () {
   const KEY = "risyuPendingSyllabusSearch";
-  const LOG = "[RisyuKeeper:シラバス埋め込み]";
+  const LOG = "[Senshu-risyuu-Plus:シラバス埋め込み]";
 
   function isExtensionContextInvalidated(err) {
     const msg = err && (err.message || String(err));

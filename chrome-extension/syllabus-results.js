@@ -1,7 +1,7 @@
 (function () {
   const PREVIEW_TS_KEY = "risyuSyllabusWantFirstPreview";
   const NAV_GUARD_KEY = "risyuFirstDetailNavFrom";
-  const LOG = "[RisyuKeeper:シラバス結果]";
+  const LOG = "[Senshu-risyuu-Plus:シラバス結果]";
 
   function isExtensionContextInvalidated(err) {
     const msg = err && (err.message || String(err));

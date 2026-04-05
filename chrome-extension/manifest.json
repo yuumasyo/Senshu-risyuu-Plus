@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "RisyuKeeper（履修画面 無操作キープ）",
+  "name": "Senshu-risyuu-Plus（専修大学 履修画面・UI/UX）",
   "version": "1.0.0",
-  "description": "履修画面の無操作キープと、配当科目選択からのシラバス検索（別タブ）を補助します。",
+  "description": "専修大学 履修画面の無操作キープ、シラバス検索連携、モダンUI（見た目の改善）をまとめて補助します。",
   "permissions": ["storage"],
   "web_accessible_resources": [
     {
@@ -12,7 +12,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "RisyuKeeper"
+    "default_title": "Senshu-risyuu-Plus"
   },
   "content_scripts": [
     {

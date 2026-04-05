@@ -63,7 +63,7 @@
   }
 
   function dbg(...args) {
-    if (settings.debugMode) console.log("[RisyuKeeper]", ...args);
+    if (settings.debugMode) console.log("[Senshu-risyuu-Plus]", ...args);
   }
 
   /** 申請状況（ARD010）など: 科目の追加 */
@@ -231,7 +231,7 @@
       overlayTimerId = window.setInterval(updateDebugOverlay, 500);
     }
     const lines = [
-      "RisyuKeeper デバッグ",
+      "Senshu-risyuu-Plus デバッグ",
       settings.enabled ? "状態: 有効" : "状態: 無効（キープオフ）",
       `無操作まで: ${settings.idleSeconds} 秒`,
     ];
